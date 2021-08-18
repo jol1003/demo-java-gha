@@ -21,7 +21,7 @@ jobs:
       run: ls -l
 
     - name: Copy Jar
-      run: cp target/*.jar devops
+      run: cp /target/*.jar devops
 
     - name: Verify file project
       run: cd devops && ls -l
