@@ -15,8 +15,10 @@ jobs:
         java-version: '8'
         distribution: 'adopt'
     - name: Build Maven phasee
-    - run: mvn --batch-mode --update-snapshots verify
-    - run: mkdir staging && cp target/*.jar staging
+      run: mvn --batch-mode --update-snapshots
+
+    - name: Move Jar
+      run: mkdir staging && cp target/*.jar staging
 
     - uses: actions/upload-artifact@v2
       with:
