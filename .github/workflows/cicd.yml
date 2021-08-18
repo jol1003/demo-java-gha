@@ -14,7 +14,7 @@ jobs:
       with:
         java-version: '8'
         distribution: 'adopt'
-    - name: Build Maven phase
+    - name: Build Maven phasee
     - run: mvn --batch-mode --update-snapshots verify
     - run: mkdir staging && cp target/*.jar staging
 
