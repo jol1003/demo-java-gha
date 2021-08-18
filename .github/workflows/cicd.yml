@@ -17,11 +17,14 @@ jobs:
     - name: Build Maven phasee
       run: mvn --batch-mode --update-snapshots verify
 
-    - name: Verify file
+    - name: Verify file project
       run: ls -l
 
-    - name: Move Jar
-      run: mkdir staging && cp target/*.jar staging
+    - name: Copy Jar
+      run: cp target/*.jar devops
+
+    - name: Verify file project
+      run: cd devpos && ls -l
 
     - uses: actions/upload-artifact@v2
       with:
