@@ -24,7 +24,7 @@ jobs:
       run: cp target/*.jar devops
 
     - name: Verify file project
-      run: cd devpos && ls -l
+      run: cd devops && ls -l
 
     - uses: actions/upload-artifact@v2
       with:
