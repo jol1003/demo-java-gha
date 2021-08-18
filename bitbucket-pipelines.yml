@@ -1,0 +1,44 @@
+QualityCode: &QualityCode
+  step:
+    name: Quality code
+    image: maven:3.6-slim
+    caches:
+      - maven
+    script:
+      - mvn -B clean install -DskipTests
+    artifacts:
+      - "**/*.jar"
+      
+DeployDev: &DeployDev
+  step:
+    name: Deploy to DEV
+    image: atlassian/pipelines-kubectl
+    services:
+      - docker
+    description: Despliga a los ambientes de DEV
+    caches:
+      - maven
+    script:
+      - echo "Se envia a desarrollo"
+      - ls -l
+      - cp `ls -d`/target/*.jar devops/
+      - cd devops
+      - ls -l
+      - cd ..
+      - echo ">>> Building 'mycontainerf.azurecr.io/demodevops:0.0.1'"
+      - echo ">>> docker build -f devops/Dockerfile -t mycontainerf.azurecr.io ."
+      - docker build -f devops/Dockerfile -t jolopez67/mycontainerf.azurecr.io .
+      - echo $AZURE_DOCKER_PASS_DEV | docker login -u "$AZURE_DOCKER_USER_DEV" --password-stdin
+      #- docker login --username "$AZURE_DOCKER_USER_DEV" --password-stdin $AZURE_DOCKER_PASS_DEV dmeo
+      - docker push jolopez67/mycontainerf.azurecr.io
+      #- sed -i "s/image:latest/jolopez67\/mycontainerf.azurecr.io/g" devops/AKS-deploy.yml
+      #- cat devops/AKS-deploy.yml
+      - kubectl --kubeconfig=devops/config apply -f devops/AKS-deploy.yml
+      
+pipelines:
+  default:
+    - <<: *QualityCode
+  branches:
+    develop:
+      - <<: *QualityCode
+      - <<: *DeployDev

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demodevops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: demodevops
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: demodevops
+    spec:
+      containers:
+      - name: demodevops
+        image: jolopez67/mycontainerf.azurecr.io
+        ports:
+        - containerPort: 8091
+          name: latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demodevops
+spec:
+  selector:
+    name: demodevops
+  type: LoadBalancer
+  ports:
+  - port: 8091
+    targetPort: 8081

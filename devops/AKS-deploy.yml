@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demodevops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: demodevops
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: demodevops
+    spec:
+      containers:
+      - name: demodevops
+        image: mycontainerf.azurecr.io/back:v1
+        env:
+          - name: ALLOW_EMPTY_PASSWORD
+            value: "yes"
+        ports:
+        - containerPort: 8081
+          name: back
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demodevops
+spec:
+  selector:
+    app.kubernetes.io/name: demodevops
+  type: LoadBalancer
+  ports:
+    - port: 8081
+      targetPort: 8090
