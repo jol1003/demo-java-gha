@@ -17,6 +17,9 @@ jobs:
     - name: Build Maven phasee
       run: mvn --batch-mode --update-snapshots verify
 
+    - name: Verify file
+      run: ls -l
+
     - name: Move Jar
       run: mkdir staging && cp target/*.jar staging
 
