@@ -12,7 +12,7 @@
 	<artifactId>fps-app-ws-altacliente</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fps-app-ws-altacliente</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Bootn v1</description>
 
 	<properties>
 		<java.version>1.8</java.version>
