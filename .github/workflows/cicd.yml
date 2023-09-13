@@ -5,7 +5,7 @@ jobs:
     name: build and push image
     runs-on: ubuntu-latest
     permissions:
-      packages: write
+      packages: writes
       contents: read
 
     steps:
