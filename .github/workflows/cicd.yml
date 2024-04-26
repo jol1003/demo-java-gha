@@ -9,7 +9,7 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v21
+    - uses: actions/checkout@v2
     - uses: actions/setup-java@v2
       with:
         java-version: '8'
